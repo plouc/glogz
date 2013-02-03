@@ -298,14 +298,15 @@ ul {
   font-size: 12px;
   background: $dark;
   color:      $light;
+  font-weight: bold;
   padding: 10px;
   box-shadow: 0 0 10px $dark inset;
   font-family: $monofont;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 .log {
   position: relative;
-  white-space: pre-line;
+  white-space: pre-wrap;
   line-height: 18px;
   display: block;
   padding-left: 20px;

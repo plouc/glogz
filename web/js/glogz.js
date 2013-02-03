@@ -114,7 +114,7 @@
       } else {
         // esc
         if (event.keyCode == 27) {
-          self.elements('q').blur();
+          self.elements.q.blur();
         }
       }
     });
@@ -208,11 +208,13 @@
         self       = this;
 
     _.each(streamLogs, function(logName) {
-      console.log(logName);
       self.socket.on('log.' + logName, function(data) {
         data = data.split("\n");
         _.each(data, function(line) {
-          self.elements.logs.append('<span class="log"><span class="chip" style="background-color: ' + 'black' + ';"></span>' + line + '</span>');
+          self.elements.logs.append('<span class="log">' +
+            '<span class="chip" style="background-color: ' + self.logs[logName].color + ';"></span>' +
+            line +
+          '</span>');
         });
       });
     });

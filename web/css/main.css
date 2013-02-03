@@ -233,14 +233,15 @@ ul {
   font-size: 12px;
   background: #1c2124;
   color: #e5e6d9;
+  font-weight: bold;
   padding: 10px;
   box-shadow: 0 0 10px #1c2124 inset;
   font-family: "courier new", courier, monospace;
-  overflow-y: auto; }
+  overflow-y: scroll; }
 
 .log {
   position: relative;
-  white-space: pre-line;
+  white-space: pre-wrap;
   line-height: 18px;
   display: block;
   padding-left: 20px; }
