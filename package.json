@@ -1,0 +1,13 @@
+{
+  "name": "Glogz",
+  "description": "Glogz log aggregator",
+  "version": "0.0.1",
+  "dependencies" : {
+    "socket.io": "0.9.11",
+    "mime": "*",
+    "handlebars": "*"
+  },
+  "engine": {
+    "node": ">=0.8"
+  }
+}

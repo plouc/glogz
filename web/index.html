@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Glogz{{truc}}</title>
+        <meta charset="utf-8">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+        <div class="toolbar">
+            <span class="app-name">Glogz</span>
+            <ul>
+                <li class="first craft-button">craft <span class="shortcut">[c]</span></li>
+                <li class="help-button">help <span class="shortcut">[h]</span></li>
+                <li class="about-button">about <span class="shortcut">[a]</span></li>
+            </ul>
+        </div>
+
+        <span class="show-infos"></span>
+        <div class="infos">
+            <div class="streams">
+                <h2>streams</h2>
+                <ul>
+                    <li>api-stream</li>
+                </ul>
+            </div>
+            <div class="files">
+                <h2>log files</h2>
+                <ul class="log-list">
+                </ul>
+            </div>
+        </div>
+
+        <div class="overlay"></div>
+
+        <div class="logs" id="logs"></div>
+
+        <footer class="footer">
+            <span class="hint">&gt;</span>
+            <input type="text" value="search"/>
+        </footer>
+
+        <div class="pane craft" id="craft">
+            <span class="pane-title"><i></i>Craft your stream<span class="pane-close">close <span class="shortcut">[x]</span></span></span>
+            <div class="pane-content">
+                <ul class="craft-log-list">
+                </ul>
+            </div>
+        </div>
+
+        <div class="pane help" id="help">
+            <span class="pane-title"><i></i>Help<span class="pane-close">close <span class="shortcut">[x]</span></span></span>
+            <div class="pane-content">
+                <h3>commands</h3>
+                <p>In order to run a command, you just have to press the command key,<br>
+                   below the list of available commands:</p>
+                <ul>
+                    <li><span class="shortcut">[c]</span> craft a new stream</li>
+                    <li><span class="shortcut">[f]</span> pattern lookup in current stream</li>
+                    <li><span class="shortcut">[h]</span> display help pane</li>
+                    <li><span class="shortcut">[i]</span> toggle info sidebar</li>
+                    <li><span class="shortcut">[x]</span> exit current context</li>
+                </ul>
+                <h3>note</h3>
+                <p>If the command doesn't respond, be sure that your window has the focus,<br>
+                   simply click in your browser's window and retry.</p>
+                <h3>hints</h3>
+                <p>When you're typing into a text field, commands won't respond.<br>
+                   if you want to leave the text field and execute a command,<br>
+                   you can press <strong>&lt;esc&gt;</strong> and then press the desired command key.</p>
+            </div>
+        </div>
+
+        <div class="pane about" id="about">
+            <span class="pane-title"><i></i>About<span class="pane-close">close <span class="shortcut">[x]</span></span></span>
+            <div class="pane-content">
+                Glogz is a simple web app wich aggregate logs from various file in (near) realt time.
+            </div>
+        </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="js/vendor/underscore.js"></script>
+        <script src="js/vendor/jquery-1.8.3.js"></script>
+        <script src="js/vendor/d3.js"></script>
+        <script src="js/glogz.js"></script>
+        <script>
+        $(document).ready(function() {
+
+            // injected from server
+            var logs = JSON.parse('{{{json logs}}}'),
+                namedLogs = {};
+            _.each(logs, function(log) {
+                namedLogs[log.name] = log;
+            });
+
+            var gloz = new Glogz(namedLogs, io.connect('http://192.168.33.10'));
+        });
+        </script>
+    </body>
+</html>

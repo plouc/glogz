@@ -1,0 +1,250 @@
+html, body {
+  height: 100%; }
+
+body {
+  padding: 10px;
+  box-sizing: border-box;
+  background: #e5e6d9;
+  font: 13px "Lucida Grande", Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  box-sizing: border-box; }
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+.toolbar {
+  position: absolute;
+  z-index: 100;
+  top: 1px;
+  right: 1px;
+  left: 1px;
+  background: #d85c45;
+  color: #e5e6d9;
+  padding: 0 13px;
+  height: 36px;
+  line-height: 36px;
+  margin-bottom: 1px; }
+  .toolbar .app-name {
+    float: left;
+    display: block;
+    font-size: 19px;
+    background: url("../imgs/glyphicons_241_flash.png") no-repeat left center;
+    padding-left: 20px;
+    margin-right: 20px;
+    color: #FFF; }
+  .toolbar ul {
+    float: left; }
+  .toolbar li {
+    position: relative;
+    float: left;
+    background: #d85c45;
+    height: 36px;
+    cursor: pointer;
+    display: block;
+    float: left;
+    padding: 0 13px;
+    border-right: 1px solid #e5e6d9; }
+    .toolbar li.first {
+      border-left: 1px solid #e5e6d9; }
+    .toolbar li:hover {
+      background: #ff8a6d; }
+
+.footer {
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
+  left: 1px;
+  background: #e5e6d9;
+  border: #d85c45 solid 7px;
+  height: 36px;
+  line-height: 36px;
+  font-family: "courier new", courier, monospace;
+  font-weight: bold; }
+  .footer .hint {
+    display: block;
+    float: left;
+    font-size: 21px;
+    padding: 0 7px; }
+  .footer input {
+    font-weight: bold;
+    float: left;
+    display: block;
+    height: 36px;
+    background: #e5e6d9;
+    border: none;
+    padding: 0;
+    font-size: 15px;
+    outline: 0 none; }
+
+.shortcut {
+  font-family: "courier new", courier, monospace;
+  color: #ffc7ba; }
+
+.infos {
+  width: 240px;
+  position: absolute;
+  top: 38px;
+  right: 1px;
+  bottom: 52px; }
+  .infos h2 {
+    background: #d85c45;
+    color: #e5e6d9;
+    margin: 0;
+    border-bottom: 1px solid #e5e6d9;
+    font-size: 13px;
+    font-weight: normal;
+    padding: 9px 13px 9px 36px; }
+  .infos .streams h2 {
+    background: #d85c45 url("../imgs/glyphicons_308_share_alt.png") no-repeat 5px center; }
+  .infos .files h2 {
+    background: #d85c45 url("../imgs/glyphicons_036_file.png") no-repeat 8px center; }
+  .infos li {
+    padding: 7px 13px;
+    background: #fff;
+    margin-bottom: 1px; }
+
+.show-infos {
+  cursor: pointer;
+  display: none;
+  position: absolute;
+  top: 38px;
+  right: 1px;
+  width: 36px;
+  height: 36px;
+  background: #d85c45 url("../imgs/glyphicons_114_list.png") no-repeat center center; }
+  .show-infos:hover {
+    background-color: #ff8a6d; }
+
+.no-infos .logs {
+  right: 38px; }
+.no-infos .show-infos {
+  display: block; }
+.no-infos .infos {
+  display: none; }
+
+.log-list li {
+  position: relative;
+  padding-left: 30px; }
+  .log-list li .chip {
+    position: absolute;
+    top: 10px;
+    left: 9px; }
+
+.chip {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%; }
+
+.overlay {
+  display: none;
+  position: absolute;
+  top: 38px;
+  right: 1px;
+  bottom: 52px;
+  left: 1px;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 199; }
+
+/*******************************************************************************
+ * Panes
+ ******************************************************************************/
+.pane {
+  position: absolute;
+  top: 100px;
+  right: 300px;
+  left: 300px;
+  background: #e5e6d9;
+  z-index: 200;
+  border: 1px solid #e5e6d9;
+  box-sizing: border-box; }
+
+.pane-title {
+  padding: 0 13px 0 47px;
+  background-color: #d85c45;
+  color: #e5e6d9;
+  display: block;
+  height: 36px;
+  line-height: 36px;
+  border-bottom: 1px solid #e5e6d9; }
+  .pane-title i {
+    display: block;
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-right: 1px solid #e5e6d9; }
+
+.pane-close {
+  cursor: pointer;
+  position: absolute;
+  padding: 0 13px;
+  height: 36px;
+  top: 0;
+  right: 0;
+  display: block;
+  border-left: 1px solid #e5e6d9; }
+  .pane-close:hover {
+    background-color: #ff8a6d; }
+
+.pane-content {
+  padding: 9px 13px;
+  background: #1c2124;
+  color: #e5e6d9; }
+  .pane-content h3 {
+    margin: 13px 0 5px 0;
+    font-size: 15px;
+    font-weight: normal; }
+    .pane-content h3:first-child {
+      margin-top: 0; }
+  .pane-content p {
+    margin: 0 0 7px 0; }
+  .pane-content strong {
+    color: #fff; }
+
+.craft, .help, .about {
+  display: none; }
+
+.craft .pane-title i {
+  background-image: url("../imgs/glyphicons_313_ax.png"); }
+
+.help .pane-title i {
+  background-image: url("../imgs/glyphicons_194_circle_question_mark.png"); }
+.help .pane-content .shortcut {
+  font-weight: bold;
+  color: #d85c45; }
+
+.about .pane-title i {
+  background-image: url("../imgs/glyphicons_195_circle_info.png"); }
+
+.logs {
+  position: absolute;
+  top: 38px;
+  right: 242px;
+  bottom: 52px;
+  left: 1px;
+  font-size: 12px;
+  background: #1c2124;
+  color: #e5e6d9;
+  padding: 10px;
+  box-shadow: 0 0 10px #1c2124 inset;
+  font-family: "courier new", courier, monospace;
+  overflow-y: auto; }
+
+.log {
+  position: relative;
+  white-space: pre-line;
+  line-height: 18px;
+  display: block;
+  padding-left: 20px; }
+  .log .chip {
+    position: absolute;
+    top: 4px;
+    left: 0; }

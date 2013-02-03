@@ -1,0 +1,7 @@
+{
+    "version": "0.0.1",
+    "port":    8357,
+    "logs":    [
+        { "name": "sys", "file": "/var/log/system.log" }
+    ]
+}
