@@ -2,6 +2,10 @@
     "version": "0.0.1",
     "port":    8357,
     "logs":    [
-        { "name": "sys", "file": "/var/log/system.log" }
-    ]
+        { "name": "sys", "file": "/var/log/syslog" }
+    ],
+    "streams": [
+        { "name": "sys", "logs": ["sys"] }
+    ],
+    "defaultStream": "sys"
 }

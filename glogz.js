@@ -36,8 +36,10 @@ function handler (req, res) {
       // pre compile index template (the only one)
       var indexRenderer = handlebars.compile(fs.readFileSync('./web/index.html').toString());
       data = indexRenderer({
-        'version': config.version,
-        'logs':    config.logs
+        'version':       config.version,
+        'logs':          config.logs,
+        'streams':       config.streams,
+        'defaultStream': config.defaultStream
       });
     }
 
@@ -49,11 +51,19 @@ function handler (req, res) {
 
 console.log('setting watchers:');
 config.logs.forEach(function(log) {
-    console.log('* watching ' + log.name);
+    console.log('* watching ' + log.name + '(tail -f ' + log.file + ')');
     var tail = spawn('tail', ['-f', log.file]);
     tail.stdout.on('data', function (data) {
       io.sockets.emit('log.' + log.name, data.toString('utf8'));
     });
+
+  tail.stderr.on('data', function (data) {
+    console.log('stderr: ' + data);
+  });
+
+  tail.on('exit', function (code) {
+    console.log('child process exited with code ' + code);
+  });
 });
 
 console.info('listening on port: ' + config.port);

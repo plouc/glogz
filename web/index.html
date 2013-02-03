@@ -21,8 +21,7 @@
         <div class="infos">
             <div class="streams">
                 <h2>streams</h2>
-                <ul>
-                    <li>api-stream</li>
+                <ul class="stream-list">
                 </ul>
             </div>
             <div class="files">
@@ -94,7 +93,14 @@
                 namedLogs[log.name] = log;
             });
 
-            var gloz = new Glogz(namedLogs, io.connect('http://192.168.33.10'));
+            var streams      = JSON.parse('{{{json streams}}}'),
+                namedStreams = {};
+            _.each(streams, function(stream) {
+                namedStreams[stream.name] = stream;
+            });
+
+            var glogz = new Glogz(namedLogs, namedStreams, io.connect('http://192.168.33.10'));
+            glogz.setStream('{{defaultStream}}');
         });
         </script>
     </body>

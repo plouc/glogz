@@ -29,12 +29,14 @@
 
   /**
    * @param logs
+   * @param streams
    * @param socket
    * @constructor
    */
-  var Glogz = function(logs, socket) {
-    this.logs   = logs;
-    this.socket = socket;
+  var Glogz = function(logs, streams, socket) {
+    this.logs    = logs;
+    this.streams = streams;
+    this.socket  = socket;
 
     this.initElements()
         .initHandlers()
@@ -55,6 +57,7 @@
       'paneCloseBtns':   $('.pane-close'),
       'logs':            $('#logs'),
       'logList':         $('.log-list'),
+      'streamList':      $('.stream-list'),
       'craftLogList':    $('.craft-log-list'),
       'craftButton':     $('.craft-button'),
       'craftPane':       $('#craft'),
@@ -151,6 +154,10 @@
       i++;
     });
 
+    _.each(this.streams, function(stream) {
+      self.elements.streamList.append('<li>' + stream.name + '</li>');
+    });
+
     return this;
   };
 
@@ -193,25 +200,24 @@
     return this;
   };
 
+  /**
+   * @return Glogz
+   */
+  Glogz.prototype.setStream = function(streamName) {
+    var streamLogs = this.streams[streamName].logs,
+        self       = this;
+
+    _.each(streamLogs, function(logName) {
+      console.log(logName);
+      self.socket.on('log.' + logName, function(data) {
+        data = data.split("\n");
+        _.each(data, function(line) {
+          self.elements.logs.append('<span class="log"><span class="chip" style="background-color: ' + 'black' + ';"></span>' + line + '</span>');
+        });
+      });
+    });
+  };
+
   global.Glogz = Glogz;
 
 })(window);
-
-/*
-$(document).ready(function() {
-
-    var subscribed = [
-        'api',
-        'individual'
-    ];
-
-    _.each(subscribed, function(logId) {
-        socket.on('log.' + logId, function(data) {
-            data = data.split("\n");
-            _.each(data, function(line) {
-                $logs.append('<span class="log"><span class="chip" style="background-color: ' + logs[logId].color + ';"></span>' + line + '</span>');
-            });
-        });
-    });
-});
-*/
