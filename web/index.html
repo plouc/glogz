@@ -97,7 +97,7 @@
                 namedStreams[stream.name] = stream;
             });
 
-            var glogz = new Glogz(namedLogs, namedStreams, io.connect('http://192.168.33.10'));
+            var glogz = new Glogz(namedLogs, namedStreams, io.connect('{{host}}'));
             glogz.setStream('{{defaultStream}}');
         });
         </script>

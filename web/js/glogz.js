@@ -43,15 +43,17 @@
    * @constructor
    */
   var Glogz = function(logs, streams, socket) {
-    this.logs         = logs;
-    this.streams      = streams;
-    this.socket       = socket;
-    this.context      = null;
-    this.contextScope = null;
+    this.logs          = logs;
+    this.watchedLogs   = [];
+    this.streams       = streams;
+    this.currentStream = null;
+    this.socket        = socket;
+    this.context       = null;
+    this.contextScope  = null;
 
     this.initElements()
-        .initHandlers()
-        .build();
+        .build()
+        .initHandlers();
 
     colorRange.domain([0, _.keys(this.logs).length]);
   };
@@ -147,6 +149,12 @@
             }
             break;
 
+          case 'esc':
+            if (self.context !== null) {
+              self.leaveContext();
+            }
+            break;
+
           case 'x':
             self.closePanes();
             break;
@@ -183,6 +191,24 @@
     _.each(['help', 'about'], function(paneName) {
       self.elements[paneName + 'Button'].on('click', function() {
         self.openPane(paneName);
+      });
+    });
+
+    _.each(this.logs, function(log) {
+      //console.log('adding listener for log.' + log.name);
+      self.socket.on('log.' + log.name, function(data) {
+        if (_.indexOf(self.watchedLogs, log.name) >= 0) {
+          //console.log('processing ' + log.name);
+          data = data.split("\n");
+          _.each(data, function(line) {
+            self.elements.logs.append('<span class="log-line log-line-' + log.name + '">' +
+              '<span class="chip" style="background-color: ' + self.logs[log.name].color + ';"></span>' +
+              line +
+            '</span>');
+          });
+        } else {
+          //console.log('skipped ' + log.name);
+        }
       });
     });
 
@@ -262,7 +288,7 @@
    * @return Glogz
    */
   Glogz.prototype.clear = function() {
-    this.elements.logs.find('.log').remove();
+    this.elements.logs.find('.log-line').remove();
 
     return this;
   };
@@ -364,38 +390,38 @@
    * @return Glogz
    */
   Glogz.prototype.setStream = function(streamName) {
-    var streamLogs = this.streams[streamName].logs,
-        self       = this;
 
-    this.elements.streamList.find('li').removeClass('active');
-    this.elements.streamList.find('#stream-' + streamName).addClass('active');
+    if (streamName !== this.currentStream) {
 
-    this.elements.logList.find('li').each(function() {
-      $(this).addClass('disabled')
-             .find('.log-visibility')
-             .removeClass('visible')
-             .removeClass('hidden')
-             .addClass('locked')
-    });
+      this.clear();
 
-    _.each(this.logs, function(logName) {
-      self.socket.removeListener('log.' + logName);
-    });
+      this.watchedLogs = this.streams[streamName].logs;
+      //console.log('set stream ' + streamName + ', ' + this.watchedLogs.join(', '));
 
-    _.each(streamLogs, function(logName) {
+      this.elements.streamList.find('li').removeClass('active');
+      this.elements.streamList.find('#stream-' + streamName).addClass('active');
 
-      $('#log-' + logName).removeClass('disabled');
+      var self = this;
 
-      self.socket.on('log.' + logName, function(data) {
-        data = data.split("\n");
-        _.each(data, function(line) {
-          self.elements.logs.append('<span class="log-line log-line-' + logName + '">' +
-            '<span class="chip" style="background-color: ' + self.logs[logName].color + ';"></span>' +
-            line +
-          '</span>');
-        });
+      this.elements.logList.find('li').each(function() {
+
+        var logName = $(this).attr('id').substr(4);
+        if (_.indexOf(self.watchedLogs, logName) >= 0) {
+          $(this).removeClass('disabled')
+                 .find('.log-visibility')
+                 .removeClass('hidden')
+                 .removeClass('locked')
+        } else {
+          $(this).addClass('disabled')
+                 .find('.log-visibility')
+                 .removeClass('visible')
+                 .removeClass('hidden')
+                 .addClass('locked');
+        }
       });
-    });
+    }
+
+    return this;
   };
 
   global.Glogz = Glogz;

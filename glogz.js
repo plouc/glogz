@@ -36,6 +36,7 @@ function handler (req, res) {
       // pre compile index template (the only one)
       var indexRenderer = handlebars.compile(fs.readFileSync('./web/index.html').toString());
       data = indexRenderer({
+        'host':          config.host,
         'version':       config.version,
         'logs':          config.logs,
         'streams':       config.streams,
