@@ -24,7 +24,7 @@ ul {
   left: 1px;
   background: #d85c45;
   color: #e5e6d9;
-  padding: 0 13px;
+  padding: 0 0 0 13px;
   height: 36px;
   line-height: 36px;
   margin-bottom: 1px; }
@@ -37,19 +37,17 @@ ul {
     margin-right: 20px;
     color: #FFF; }
   .toolbar ul {
-    float: left; }
+    float: right; }
   .toolbar li {
     position: relative;
-    float: left;
+    float: right;
     background: #d85c45;
     height: 36px;
     cursor: pointer;
     display: block;
     float: left;
     padding: 0 13px;
-    border-right: 1px solid #e5e6d9; }
-    .toolbar li.first {
-      border-left: 1px solid #e5e6d9; }
+    border-left: 1px solid #e5e6d9; }
     .toolbar li:hover {
       background: #ff8a6d; }
 
@@ -81,6 +79,7 @@ ul {
     outline: 0 none; }
 
 .shortcut {
+  white-space: pre;
   font-family: "courier new", courier, monospace;
   color: #ffc7ba; }
 
@@ -103,9 +102,18 @@ ul {
   .infos .files h2 {
     background: #d85c45 url("../imgs/glyphicons_036_file.png") no-repeat 8px center; }
   .infos li {
-    padding: 7px 13px;
-    background: #fff;
+    padding: 0 13px;
+    height: 30px;
+    line-height: 30px;
+    background: #cabfa8;
     margin-bottom: 1px; }
+    .infos li.has-scope {
+      background: #fff; }
+    .infos li.active {
+      padding-left: 30px;
+      background-repeat: no-repeat;
+      background-position: 8px center;
+      background-image: url("../imgs/stream-current.png"); }
 
 .show-infos {
   cursor: pointer;
@@ -127,12 +135,43 @@ ul {
   display: none; }
 
 .log-list li {
+  padding: 0;
   position: relative;
-  padding-left: 30px; }
+  height: 30px;
+  line-height: 30px;
+  margin-bottom: 1px;
+  background: #cabfa8; }
+  .log-list li > * {
+    display: block;
+    float: left;
+    height: 30px; }
+    .log-list li > *:first-child {
+      border-left: none; }
+  .log-list li .chip-cell,
+  .log-list li .log-visibility {
+    width: 30px; }
+  .log-list li .log-name {
+    padding-left: 9px; }
   .log-list li .chip {
     position: absolute;
+    background-color: #e5e6d9;
     top: 10px;
-    left: 9px; }
+    left: 10px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5); }
+
+.log-list .log-visibility {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image: url("../imgs/eye.png"); }
+
+.log-list .hidden .log-visibility {
+  background-image: url("../imgs/eye-closed.png"); }
+
+.log-list .disabled {
+  background: #a79c87;
+  color: #746956; }
+  .log-list .disabled .log-visibility {
+    background-image: url("../imgs/lock.png"); }
 
 .chip {
   display: block;
@@ -239,13 +278,13 @@ ul {
   font-family: "courier new", courier, monospace;
   overflow-y: scroll; }
 
-.log {
+.log-line {
   position: relative;
   white-space: pre-wrap;
   line-height: 18px;
   display: block;
   padding-left: 20px; }
-  .log .chip {
+  .log-line .chip {
     position: absolute;
     top: 4px;
     left: 0; }

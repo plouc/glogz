@@ -39,7 +39,7 @@ ul {
   left:  $spacing;
   background: $accentColor;
   color:      $light;
-  padding: 0 13px;
+  padding: 0 0 0 13px;
   height:      $componentHeight;
   line-height: $componentHeight;
   .app-name {
@@ -53,21 +53,18 @@ ul {
   }
   margin-bottom: $spacing;
   ul {
-    float: left;
+    float: right;
   }
   li {
     position: relative;
-    float: left;
+    float: right;
     background: $accentColor;
     height: $componentHeight;
     cursor: pointer;
     display: block;
     float: left;
     padding: 0 13px;
-    border-right: $spacing solid $light;
-    &.first {
-      border-left: $spacing solid $light;
-    }
+    border-left: $spacing solid $light;
     &:hover {
       background: $accentColorLight;
     }
@@ -105,6 +102,7 @@ ul {
 }
 
 .shortcut {
+  white-space: pre;
   font-family: $monofont;
   color: lighten($accentColorLight, 15);
 }
@@ -132,9 +130,20 @@ ul {
     background: $accentColor url("../imgs/glyphicons_036_file.png") no-repeat 8px center;
   }
   li {
-    padding: 7px 13px;
-    background: #fff;
+    padding: 0 13px;
+    height:      30px;
+    line-height: 30px;
+    background: #cabfa8;
     margin-bottom: $spacing;
+    &.has-scope {
+      background: #fff;
+    }
+    &.active {
+      padding-left: 30px;
+      background-repeat: no-repeat;
+      background-position: 8px center;
+      background-image: url("../imgs/stream-current.png");
+    }
   }
 }
 
@@ -165,12 +174,48 @@ ul {
 }
 
 .log-list li {
+  padding: 0;
   position: relative;
-  padding-left: 30px;
+  height:      30px;
+  line-height: 30px;
+  margin-bottom: $spacing;
+  background: #cabfa8;
+  > * {
+    display: block;
+    float: left;
+    height: 30px;
+    &:first-child {
+      border-left: none;
+    }
+  }
+  .chip-cell,
+  .log-visibility {
+    width: 30px;
+  }
+  .log-name {
+    padding-left: 9px;
+  }
   .chip {
     position: absolute;
+    background-color: $light;
     top:  10px;
-    left: 9px;
+    left: 10px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.5);
+  }
+}
+.log-list .log-visibility {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image: url("../imgs/eye.png");
+}
+.log-list .hidden .log-visibility {
+  background-image: url("../imgs/eye-closed.png");
+}
+.log-list .disabled {
+  background: #a79c87;
+  color: #746956;
+  .log-visibility {
+    background-image: url("../imgs/lock.png");
   }
 }
 
@@ -304,7 +349,7 @@ ul {
   font-family: $monofont;
   overflow-y: scroll;
 }
-.log {
+.log-line {
   position: relative;
   white-space: pre-wrap;
   line-height: 18px;

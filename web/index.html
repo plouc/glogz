@@ -11,7 +11,7 @@
         <div class="toolbar">
             <span class="app-name">Glogz</span>
             <ul>
-                <li class="first craft-button">craft <span class="shortcut">[c]</span></li>
+                <li class="first clear-button">clear <span class="shortcut">[c]</span></li>
                 <li class="help-button">help <span class="shortcut">[h]</span></li>
                 <li class="about-button">about <span class="shortcut">[a]</span></li>
             </ul>
@@ -20,12 +20,12 @@
         <span class="show-infos"></span>
         <div class="infos">
             <div class="streams">
-                <h2>streams</h2>
+                <h2>streams <span class="shortcut">[s]</span></h2>
                 <ul class="stream-list">
                 </ul>
             </div>
             <div class="files">
-                <h2>log files</h2>
+                <h2>log files <span class="shortcut">[l]</span></h2>
                 <ul class="log-list">
                 </ul>
             </div>
@@ -40,14 +40,6 @@
             <input type="text" value="search"/>
         </footer>
 
-        <div class="pane craft" id="craft">
-            <span class="pane-title"><i></i>Craft your stream<span class="pane-close">close <span class="shortcut">[x]</span></span></span>
-            <div class="pane-content">
-                <ul class="craft-log-list">
-                </ul>
-            </div>
-        </div>
-
         <div class="pane help" id="help">
             <span class="pane-title"><i></i>Help<span class="pane-close">close <span class="shortcut">[x]</span></span></span>
             <div class="pane-content">
@@ -55,11 +47,17 @@
                 <p>In order to run a command, you just have to press the command key,<br>
                    below the list of available commands:</p>
                 <ul>
-                    <li><span class="shortcut">[c]</span> craft a new stream</li>
-                    <li><span class="shortcut">[f]</span> pattern lookup in current stream</li>
-                    <li><span class="shortcut">[h]</span> display help pane</li>
-                    <li><span class="shortcut">[i]</span> toggle info sidebar</li>
-                    <li><span class="shortcut">[x]</span> exit current context</li>
+                    <li><span class="shortcut">    [c]</span> clear current stream</li>
+                    <li><span class="shortcut">    [f]</span> pattern lookup in current stream</li>
+                    <li><span class="shortcut">    [h]</span> display help pane</li>
+                    <li><span class="shortcut">    [i]</span> toggle info sidebar</li>
+                    <li><span class="shortcut">    [l]</span> logs</li>
+                    <li><span class="shortcut">    [s]</span> streams</li>
+                    <li><span class="shortcut">    [t]</span> toggle log visibility</li>
+                    <li><span class="shortcut">    [x]</span> exit current context</li>
+                    <li><span class="shortcut">   [up]</span> move backward in current context</li>
+                    <li><span class="shortcut"> [down]</span> move forward in current context</li>
+                    <li><span class="shortcut">[space]</span> select a stream</li>
                 </ul>
                 <h3>note</h3>
                 <p>If the command doesn't respond, be sure that your window has the focus,<br>
