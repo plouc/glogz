@@ -72,27 +72,27 @@
     };
 
     self.keystro
-      .on('alt+a', function() {
+      .on('alt.a', function() {
         self.openPane('about');
       }, { assert: assertNotInput })
-      .on('alt+c', function() {
+      .on('alt.c', function() {
         self.clear();
       }, { assert: assertNotInput })
-      .on('alt+f', function(event) {
+      .on('alt.f', function(event) {
         event.preventDefault();
         self.elements.q.focus();
       }, { assert: assertNotInput })
-      .on('alt+h', function() {
+      .on('alt.h', function() {
         self.openPane('help');
       }, { assert: assertNotInput })
-      .on('alt+i', function() {
+      .on('alt.i', function() {
         self.toggleInfos();
       }, { assert: assertNotInput })
-      .on('alt+l', function() {
+      .on('alt.l', function() {
         self.showInfos()
             .enterContext(self.elements.logList);
       }, { assert: assertNotInput })
-      .on('alt+s', function() {
+      .on('alt.s', function() {
         self.showInfos()
             .enterContext(self.elements.streamList);
       }, { assert: assertNotInput })
@@ -102,7 +102,7 @@
           self.setStream(streamName);
         }
       }, { assert: assertNotInput })
-      .on('alt+t', function() {
+      .on('alt.t', function() {
         if (self.contextScope !== null && self.contextScope.is('.log')) {
           var logName = self.contextScope.attr('id').substr(4);
           if (!self.contextScope.hasClass('hidden')) {
@@ -123,7 +123,7 @@
           self.elements.q.blur();
         }
       })
-      .on('alt+x', function() {
+      .on('alt.x', function() {
         self.closePanes();
       }, { assert: assertNotInput })
       .on('up', function(event) {
