@@ -16,7 +16,8 @@ html, body {
 
 body {
   padding: 10px;
-  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
   background: $light;
   font: 13px "Lucida Grande", Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -250,7 +251,8 @@ ul {
   background: $light;
   z-index: 200;
   border: $spacing solid $light;
-  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
 }
 .pane-title {
   padding: 0 13px 0 47px;

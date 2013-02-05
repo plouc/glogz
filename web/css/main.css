@@ -3,6 +3,7 @@ html, body {
 
 body {
   padding: 10px;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   background: #e5e6d9;
   font: 13px "Lucida Grande", Verdana, sans-serif;
@@ -200,6 +201,7 @@ ul {
   background: #e5e6d9;
   z-index: 200;
   border: 1px solid #e5e6d9;
+  -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
 .pane-title {
