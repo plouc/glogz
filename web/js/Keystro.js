@@ -5,6 +5,8 @@
 
   // map key code to symbol
   var keyCodeSymbols = {
+    17: 'ctrl',
+    18: 'alt',
     27: 'esc',
     32: 'space',
     37: 'left', 38: 'up', 39: 'right', 40: 'down',
@@ -28,38 +30,48 @@
   var Keystro = function() {
 
     this.handlers = {};
+    this.stack    = [];
 
     var self = this;
 
-    var symbol;
-    document.addEventListener('keydown', function(event) {
+    window.onkeydown = function(event) {
+      //console.log(event);
 
-      symbol = keyCodeToSymbol(event.keyCode);
+      var symbol = keyCodeToSymbol(event.keyCode);
 
-      if (self.handlers[symbol]) {
-        self.handlers[symbol](event);
+      self.stack.push(symbol);
+
+      var symbols = self.stack.slice(0).sort().join('+');
+
+      if (self.handlers[symbols] && self.handlers[symbols].assert(event) === true) {
+        self.handlers[symbols].fn(event);
       }
-      //var $activeElement = $(event.currentTarget.activeElement);
-    });
+    };
+
+    window.onkeyup = function(event) {
+      self.stack.pop();
+    };
   };
 
   /**
-   * @param configurations
+   * @param symbols
+   * @param callback
+   * @param options
    * @return Keystro
    */
-  Keystro.prototype.configure = function(configurations) {
+  Keystro.prototype.on = function(symbols, callback, options) {
 
-    var self = this;
+    options = options || {};
+    symbols = symbols.split('+').sort().join('+');
 
-    _.each(configurations, function(configuration, symbol) {
-      self.handlers[symbol] = configuration;
-    });
+    this.handlers[symbols] = {
+      'fn':     callback,
+      'assert': options.assert || function() {
+        return true;
+      }
+    };
 
     return this;
-  };
-
-  Keystro.prototype.on = function(symbols, callback) {
-
   };
 
   global.Keystro = Keystro;

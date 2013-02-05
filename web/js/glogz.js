@@ -67,37 +67,42 @@
 
     var self = this;
 
-    self.keystro.configure({
-      'a': function() {
+    var assertNotInput = function(event) {
+      return event.target.tagName != 'INPUT';
+    };
+
+    self.keystro
+      .on('alt+a', function() {
         self.openPane('about');
-      },
-      'c': function() {
+      }, { assert: assertNotInput })
+      .on('alt+c', function() {
         self.clear();
-      },
-      'f': function() {
-        self.elements('q').focus();
-      },
-      'h': function() {
+      }, { assert: assertNotInput })
+      .on('alt+f', function(event) {
+        event.preventDefault();
+        self.elements.q.focus();
+      }, { assert: assertNotInput })
+      .on('alt+h', function() {
         self.openPane('help');
-      },
-      'i': function() {
+      }, { assert: assertNotInput })
+      .on('alt+i', function() {
         self.toggleInfos();
-      },
-      'l': function() {
+      }, { assert: assertNotInput })
+      .on('alt+l', function() {
         self.showInfos()
             .enterContext(self.elements.logList);
-      },
-      's': function() {
+      }, { assert: assertNotInput })
+      .on('alt+s', function() {
         self.showInfos()
             .enterContext(self.elements.streamList);
-      },
-      'space': function() {
+      }, { assert: assertNotInput })
+      .on('space', function() {
         if (self.contextScope !== null && self.contextScope.is('.stream')) {
           var streamName = self.contextScope.attr('id').substr(7);
           self.setStream(streamName);
         }
-      },
-      't': function() {
+      }, { assert: assertNotInput })
+      .on('alt+t', function() {
         if (self.contextScope !== null && self.contextScope.is('.log')) {
           var logName = self.contextScope.attr('id').substr(4);
           if (!self.contextScope.hasClass('hidden')) {
@@ -108,23 +113,26 @@
             self.showLogs(logName);
           }
         }
-      },
-      'esc': function() {
-        if (self.context !== null) {
-          self.leaveContext();
+      }, { assert: assertNotInput })
+      .on('esc', function(event) {
+        if (assertNotInput(event)) {
+          if (self.context !== null) {
+            self.leaveContext();
+          }
+        } else {
+          self.elements.q.blur();
         }
-        //self.elements.q.blur();
-      },
-      'x': function() {
+      })
+      .on('alt+x', function() {
         self.closePanes();
-      },
-      'up': function() {
+      }, { assert: assertNotInput })
+      .on('up', function() {
         self.contextPrev();
-      },
-      'down': function() {
+      }, { assert: assertNotInput })
+      .on('down', function() {
         self.contextNext();
-      }
-    });
+      }, { assert: assertNotInput });
+
 
     this.elements.paneCloseBtns.on('click', function() {
       self.closePanes();
