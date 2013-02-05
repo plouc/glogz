@@ -126,11 +126,17 @@
       .on('alt+x', function() {
         self.closePanes();
       }, { assert: assertNotInput })
-      .on('up', function() {
-        self.contextPrev();
+      .on('up', function(event) {
+        if (this.contextScope !== null) {
+          event.preventDefault();
+          self.contextPrev();
+        }
       }, { assert: assertNotInput })
-      .on('down', function() {
-        self.contextNext();
+      .on('down', function(event) {
+        if (this.contextScope !== null) {
+          event.preventDefault();
+          self.contextNext();
+        }
       }, { assert: assertNotInput });
 
 

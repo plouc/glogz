@@ -34,23 +34,32 @@
 
     var self = this;
 
+    var previousKey = null;
+
     window.onkeydown = function(event) {
       //console.log(event);
 
       var symbol = keyCodeToSymbol(event.keyCode);
 
       self.stack.push(symbol);
+      //self.stack = _.uniq(self.stack);
 
       var symbols = self.stack.slice(0).sort().join('+');
 
       if (self.handlers[symbols] && self.handlers[symbols].assert(event) === true) {
         self.handlers[symbols].fn(event);
       }
+
+      previousKey = event.keyCode;
     };
 
     window.onkeyup = function(event) {
       self.stack.pop();
     };
+
+    document.onmouseout = function(event) {
+      self.stack = [];
+    }
   };
 
   /**
